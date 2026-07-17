@@ -2,6 +2,9 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-COPY test.py .
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-CMD ["python", "test.py"]
+COPY . .
+
+CMD ["python", "main.py"]
