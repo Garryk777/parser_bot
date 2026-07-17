@@ -3,23 +3,34 @@ from aiogram import Bot, Dispatcher, types
 from aiogram.filters import Command
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemove
 
+import sys
+print("DEBUG: импорты aiogram и types загружены", flush=True)
+
 import database
+print("DEBUG: database импортирован", flush=True)
 
 import os
 from dotenv import load_dotenv
-
-import sys
-print("DEBUG: main.py started", flush=True)
-sys.stdout.flush()
+print("DEBUG: os и dotenv импортированы", flush=True)
 
 load_dotenv()
+print("DEBUG: load_dotenv() выполнен", flush=True)
+
 TOKEN = os.getenv("BOT_TOKEN")
+print(f"DEBUG: TOKEN = {TOKEN[:10]}... (скрыто)", flush=True)
+
 ADMIN_ID = int(os.getenv("ADMIN_ID"))
+print(f"DEBUG: ADMIN_ID = {ADMIN_ID}", flush=True)
 
 bot = Bot(token=TOKEN)
-dp = Dispatcher()
+print("DEBUG: bot создан", flush=True)
 
+dp = Dispatcher()
+print("DEBUG: dp создан", flush=True)
+
+print("DEBUG: перед database.init_db()", flush=True)
 database.init_db()
+print("DEBUG: после database.init_db()", flush=True)
 
 # --- Клавиатура для клиентов (главное меню) ---
 def client_keyboard():
