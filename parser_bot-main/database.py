@@ -1,5 +1,6 @@
 import sqlite3
 import time
+from chats import CHATS
 
 DB_NAME = "subscriptions.db"
 
@@ -29,9 +30,14 @@ def init_db():
             FOREIGN KEY (subscription_id) REFERENCES subscriptions (id)
         )
     """)
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS chats (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            chat_username TEXT UNIQUE
+        )
+    """)
     conn.commit()
     conn.close()
-
 
 
 def get_user_subs(user_id):
@@ -59,7 +65,7 @@ def create_subscription(user_id, topic, days=30):
     conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()
     cursor.execute("INSERT OR IGNORE INTO users (user_id) VALUES (?)", (user_id,))
-    expires_at = int(time.time()) + days * 86400  # <-- ЭТА СТРОКА ДОЛЖНА БЫТЬ
+    expires_at = int(time.time()) + days * 86400
     cursor.execute(
         "INSERT INTO subscriptions (user_id, topic, expires_at) VALUES (?, ?, ?)",
         (user_id, topic, expires_at)
@@ -182,3 +188,8 @@ def get_all_users_with_subs_detailed():
             "days_left": days_left
         })
     return result
+
+
+def get_all_chats():
+    """Возвращает список чатов из chats.py"""
+    return CHATS
