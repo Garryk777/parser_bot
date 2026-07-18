@@ -565,6 +565,12 @@ async def handle_admin_input(message: types.Message):
 # --- Запуск ---
 async def main():
     print("Бот запущен...")
+
+    # Запускаем парсер в фоновом режиме
+    import asyncio
+    from parser import main as parser_main
+    asyncio.create_task(parser_main())
+
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
