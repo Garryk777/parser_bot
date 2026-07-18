@@ -1,16 +1,12 @@
 import asyncio
 from telethon import TelegramClient
 from telethon.errors import FloodWaitError
-from config import API_ID, API_HASH, PHONE_NUMBER
+from config import API_ID, API_HASH, PHONE_NUMBER, BOT_TOKEN  # ← добавлен BOT_TOKEN
 from database import get_all_subscriptions
 from aiogram import Bot
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from chats import CHATS
-import os
-from dotenv import load_dotenv
 
-load_dotenv()
-TOKEN = os.getenv("BOT_TOKEN")
 bot = Bot(token=BOT_TOKEN)
 
 # --- НАСТРОЙКИ ---
