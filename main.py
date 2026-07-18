@@ -2,6 +2,7 @@ import asyncio
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters import Command
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemove
+from aiogram.client.session.aiohttp import AiohttpSession
 
 import sys
 print("DEBUG: импорты aiogram и types загружены", flush=True)
@@ -22,7 +23,7 @@ print(f"DEBUG: TOKEN = {TOKEN[:10]}... (скрыто)", flush=True)
 ADMIN_ID = int(os.getenv("ADMIN_ID"))
 print(f"DEBUG: ADMIN_ID = {ADMIN_ID}", flush=True)
 
-bot = Bot(token=TOKEN)
+bot = Bot(token=TOKEN, session=AiohttpSession(api="https://api.botgate.ai"))
 print("DEBUG: bot создан", flush=True)
 
 dp = Dispatcher()
